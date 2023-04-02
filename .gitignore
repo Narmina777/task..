@@ -1,32 +1,27 @@
-# Prerequisites
-*.d
+using System;
+using System.IO;
+using System.Linq;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+class Program
+{
+    static void Main()
+    {
+        string filePath = "numbers.txt";
+        string sortedFilePath = "sorted_numbers.txt";
 
-# Precompiled Headers
-*.gch
-*.pch
+        // Read the numbers from the file
+        string numbersString = File.ReadAllText(filePath);
+        int[] numbers = numbersString.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                     .Select(int.Parse)
+                                     .ToArray();
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+        // Sort the numbers
+        Array.Sort(numbers);
 
-# Fortran module files
-*.mod
-*.smod
+        // Write the sorted numbers to a file
+        string sortedNumbersString = string.Join(",", numbers);
+        File.WriteAllText(sortedFilePath, sortedNumbersString);
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+        Console.WriteLine("Done sorting and writing to file.");
+    }
+}
